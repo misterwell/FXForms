@@ -2007,7 +2007,7 @@ static BOOL *FXFormSetValueForKey(id<FXForm> form, id value, NSString *key)
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         textView = [[UITextView alloc] init];
-        textView.font = [UIFont systemFontOfSize:17];
+        textView.font = field.cellConfig[@"textView.font"] ?: [UIFont systemFontOfSize:17];
     });
     
     textView.text = [field fieldDescription] ?: @" ";
