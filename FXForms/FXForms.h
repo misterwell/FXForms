@@ -1,7 +1,7 @@
 //
 //  FXForms.h
 //
-//  Version 1.1 beta 4
+//  Version 1.1.6
 //
 //  Created by Nick Lockwood on 13/02/2014.
 //  Copyright (c) 2014 Charcoal Design. All rights reserved.
@@ -60,6 +60,8 @@ static NSString *const FXFormFieldTypeEmail = @"email";
 static NSString *const FXFormFieldTypePassword = @"password";
 static NSString *const FXFormFieldTypeNumber = @"number";
 static NSString *const FXFormFieldTypeInteger = @"integer";
+static NSString *const FXFormFieldTypeFloat = @"float";
+static NSString *const FXFormFieldTypeBitfield = @"bitfield";
 static NSString *const FXFormFieldTypeBoolean = @"boolean";
 static NSString *const FXFormFieldTypeOption = @"option";
 static NSString *const FXFormFieldTypeDate = @"date";
@@ -87,6 +89,11 @@ static NSString *const FXFormFieldTypeImage = @"image";
 - (NSArray *)fields;
 - (NSArray *)extraFields;
 
+// informal protocol:
+
+// - (NSDictionary *)<fieldKey>Field
+// - (NSString *)<fieldKey>FieldDescription
+
 @end
 
 
@@ -99,7 +106,6 @@ static NSString *const FXFormFieldTypeImage = @"image";
 @property (nonatomic, readonly) id placeholder;
 @property (nonatomic, readonly) NSArray *options;
 @property (nonatomic, readonly) Class viewController;
-@property (nonatomic, readonly) NSValueTransformer *valueTransformer;
 @property (nonatomic, readonly) void (^action)(id sender);
 @property (nonatomic, strong) id value;
 
@@ -118,6 +124,7 @@ static NSString *const FXFormFieldTypeImage = @"image";
 @interface FXFormController : NSObject
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) FXFormController *parentFormController;
 @property (nonatomic, weak) id<FXFormControllerDelegate> delegate;
 @property (nonatomic, strong) id<FXForm> form;
 
@@ -162,8 +169,8 @@ static NSString *const FXFormFieldTypeImage = @"image";
 
 @optional
 
-+ (CGFloat)heightForField:(FXFormField *)field;
 + (CGFloat)heightForField:(FXFormField *)field width:(CGFloat)width;
++ (CGFloat)heightForField:(FXFormField *)field;
 - (void)didSelectWithTableView:(UITableView *)tableView controller:(UIViewController *)controller;
 
 @end
